@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediBot - Your Medical Assistant</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <div class="logo-icon"><img src="logo.png" alt=""></div>
+                <h1>ClinixAI</h1>
+            </div>
+            <div class="status-indicator">
+                <div class="status-dot"></div>
+                <span>Online</span>
+            </div>
+        </header>
+
+        <!-- Main Interface -->
+        <main class="main-interface">
+            <!-- Assistant Character -->
+            <div class="assistant-container">
+                <div class="assistant-character">
+                    <div class="character-body">
+                        <div class="character-head">
+                            <div class="character-eyes">
+                                <div class="eye left-eye">
+                                    <div class="pupil"></div>
+                                </div>
+                                <div class="eye right-eye">
+                                    <div class="pupil"></div>
+                                </div>
+                            </div>
+                            <div class="character-mouth"></div>
+                            <div class="character-cross">+</div>
+                        </div>
+                        <div class="character-torso">
+                            <div class="stethoscope">
+                                <div class="stethoscope-tube"></div>
+                                <div class="stethoscope-chest"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="assistant-speech-bubble">
+                    <p>Hello! I'm MediBot, your AI medical assistant. How can I help you today?</p>
+                </div>
+            </div>
+
+            <!-- Chat Interface -->
+            <div class="chat-container">
+                <div class="chat-messages" id="chatMessages">
+                    <div class="message bot-message">
+                        <div class="message-avatar">🤖</div>
+                        <div class="message-content">
+                            <p>Welcome to MediBot! I'm here to help you with medical information and health-related questions. Please note that I cannot replace professional medical advice.</p>
+                        </div>
+                        <div class="message-time">Just now</div>
+                    </div>
+                    
+                    <div class="message user-message">
+                        <div class="message-avatar">👤</div>
+                        <div class="message-content">
+                            <p>What are the symptoms of a common cold?</p>
+                        </div>
+                        <div class="message-time">2:30 PM</div>
+                    </div>
+                    
+                    <div class="message bot-message">
+                        <div class="message-avatar">🤖</div>
+                        <div class="message-content">
+                            <p>Common cold symptoms include: runny or stuffy nose, sore throat, cough, mild headache, sneezing, and low-grade fever. Symptoms typically last 7-10 days. Stay hydrated and get plenty of rest!</p>
+                        </div>
+                        <div class="message-time">2:31 PM</div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="quick-actions">
+                    <button class="quick-btn" onclick="sendQuickMessage('What are common symptoms to look for?')">
+                        🔍 Symptom Checker
+                    </button>
+                    <button class="quick-btn" onclick="sendQuickMessage('Tell me about paracetamol medication')">
+                        💊 Medication Info
+                    </button>
+                    <button class="quick-btn" onclick="sendQuickMessage('What should I do for first aid?')">
+                        🚑 First Aid
+                    </button>
+                    <button class="quick-btn" onclick="sendQuickMessage('Give me some health tips')">
+                        💡 Health Tips
+                    </button>
+                </div>
+
+                <!-- Input Area -->
+                <div class="input-container">
+                    <div class="input-wrapper">
+                        <input type="text" id="messageInput" placeholder="Ask me about your health concerns..." autocomplete="off">
+                        <button class="send-btn" onclick="sendMessage()">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                <path d="M22 2L11 13M22 2L15 22L11 13M22 2L2 9L11 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="input-options">
+                        <button class="option-btn">🎤</button>
+                        <button class="option-btn">📎</button>
+                        <button class="option-btn">😊</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>⚠️ This is for informational purposes only. Always consult healthcare professionals for medical advice.</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

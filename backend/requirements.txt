@@ -1,0 +1,10 @@
+flask
+flask-cors
+python-dotenv
+google-generativeai
+langchain
+langchain-pinecone
+pinecone-client
+sentence-transformers
+huggingface-hub
+langchain-community

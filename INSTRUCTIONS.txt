@@ -1,0 +1,49 @@
+🏥 CLINIXAI MEDICAL CHATBOT - SETUP INSTRUCTIONS
+================================================
+
+Your medical chatbot is ready! Here's how to run it:
+
+OPTION 1: AUTOMATIC START (RECOMMENDED)
+--------------------------------------
+1. Double-click "START_MEDIBOT.bat"
+2. Wait for both servers to start
+3. Open your browser and go to: http://localhost:8000
+
+OPTION 2: MANUAL START
+---------------------
+1. Double-click "run_backend.bat" (starts API server)
+2. Double-click "run_frontend.bat" (starts web interface)
+3. Open your browser and go to: http://localhost:8000
+
+TROUBLESHOOTING
+--------------
+- If backend fails: Use "working_app.py" instead of "simple_app.py"
+- If Gemini API quota exceeded: The app will still work with fallback responses
+- If Pinecone fails: The app will work with direct AI responses
+
+WHAT'S INCLUDED
+--------------
+✅ Beautiful futuristic medical chatbot UI
+✅ Animated medical assistant character
+✅ Integration with your Pinecone knowledge base
+✅ Gemini AI for intelligent responses
+✅ Fallback mechanisms for reliability
+✅ Quick action buttons for common queries
+✅ Responsive design for all devices
+
+URLS
+----
+- Frontend: http://localhost:8000
+- Backend API: http://localhost:5000
+- Health Check: http://localhost:5000/api/health
+
+FEATURES
+--------
+🔍 Symptom Checker
+💊 Medication Information  
+🚑 First Aid Guidance
+💡 Health Tips
+🤖 AI-Powered Responses
+📚 Medical Knowledge Base (39,919+ text chunks)
+
+Enjoy your medical chatbot! 🎉
