@@ -194,10 +194,5 @@ def chat():
         return jsonify({'error': str(e)}), 500
 
 if __name__ == '__main__':
-    print("=" * 50)
-    print("CLINIXAI MEDICAL CHATBOT - ENHANCED")
-    print("URL: http://localhost:5000")
-    print("Features: Knowledge Base + General Medical AI")
-    print("=" * 50)
-    
-    app.run(debug=True, port=5000, host='0.0.0.0')
+    port = int(os.environ.get('PORT', 5000))
+    app.run(debug=False, host='0.0.0.0', port=port)
