@@ -8,3 +8,4 @@ langchain-pinecone==0.0.3
 sentence-transformers==2.2.2
 pinecone-client==3.0.0
 huggingface-hub==0.19.4
+sqlite3

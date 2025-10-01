@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
 // Check if backend is running
 async function checkBackendHealth() {
     try {
-        const response = await fetch('http://localhost:5000/api/health');
+        const response = await fetch('/api/health');
         const data = await response.json();
         
         if (data.status === 'healthy') {
@@ -64,7 +64,7 @@ async function sendMessage() {
     
     try {
         // Send to backend API
-        const response = await fetch('http://localhost:5000/api/chat', {
+        const response = await fetch('/api/chat', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

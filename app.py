@@ -2,8 +2,9 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 import os
 from dotenv import load_dotenv
+from database import MediBotDB
 
-# Load environment variables from .env.local first, then .env
+# Load environment variables
 if os.path.exists('.env.local'):
     load_dotenv('.env.local')
 else:
@@ -11,6 +12,9 @@ else:
 
 app = Flask(__name__)
 CORS(app)
+
+# Initialize database
+db = MediBotDB()
 
 print("Starting ClinixAI Medical Chatbot...")
 
@@ -142,32 +146,17 @@ def js():
     with open('script.js', 'r', encoding='utf-8') as f:
         return f.read(), 200, {'Content-Type': 'application/javascript'}
 
-@app.route('/logo.png')
-def logo():
-    try:
-        # Try SVG logo first
-        with open('logo.svg', 'r', encoding='utf-8') as f:
-            return f.read(), 200, {'Content-Type': 'image/svg+xml'}
-    except:
-        try:
-            # Try PNG logo
-            with open('logo.png', 'rb') as f:
-                return f.read(), 200, {'Content-Type': 'image/png'}
-        except:
-            # Create a simple medical cross as fallback
-            svg_logo = '''<svg width="50" height="50" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
-<circle cx="25" cy="25" r="25" fill="#00D4FF"/>
-<path d="M25 10V40M10 25H40" stroke="white" stroke-width="4" stroke-linecap="round"/>
-</svg>'''
-            return svg_logo, 200, {'Content-Type': 'image/svg+xml'}
-
 @app.route('/api/health', methods=['GET'])
 def health():
+    stats = db.get_stats()
     return jsonify({
         'status': 'healthy',
         'gemini_available': gemini_model is not None,
         'pinecone_available': retriever is not None,
-        'message': 'ClinixAI MediBot is running!'
+        'message': 'ClinixAI MediBot is running!',
+        'database': 'connected',
+        'total_chats': stats['total_chats'],
+        'avg_rating': stats['avg_rating']
     })
 
 @app.route('/api/chat', methods=['POST'])
@@ -184,15 +173,37 @@ def chat():
         # Get enhanced AI response
         response, sources = get_ai_response(question)
         
+        # Save to database
+        chat_id = db.save_chat(question, response, sources)
+        
         return jsonify({
             'response': response,
             'sources': sources,
-            'model': 'clinixai-enhanced'
+            'model': 'clinixai-enhanced',
+            'chat_id': chat_id
         })
         
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
+@app.route('/api/history', methods=['GET'])
+def get_history():
+    history = db.get_chat_history(limit=20)
+    return jsonify({'history': history})
+
+@app.route('/api/feedback', methods=['POST'])
+def save_feedback():
+    data = request.get_json()
+    chat_id = data.get('chat_id')
+    rating = data.get('rating')
+    comment = data.get('comment', '')
+    
+    if chat_id and rating:
+        db.save_feedback(chat_id, rating, comment)
+        return jsonify({'success': True})
+    return jsonify({'error': 'Missing chat_id or rating'}), 400
+
 if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 5000))
-    app.run(debug=False, host='0.0.0.0', port=port)
+    port = int(os.environ.get('PORT', 2800))
+    print(f"ClinixAI running on http://localhost:{port}")
+    app.run(debug=True, host='0.0.0.0', port=port)

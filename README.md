@@ -1,110 +1,79 @@
-# Medical Chatbot - End-to-End Application
+# ClinixAI - Medical Chatbot
 
-A complete medical chatbot application with React frontend and Flask backend, powered by Gemini AI and Pinecone vector database.
+A complete medical chatbot with user authentication, AI responses, and SQLite database.
 
 ## Features
 
-- 🏥 Medical knowledge base with 39,919+ text chunks
-- 🤖 AI-powered responses using Google Gemini 2.5 Flash
-- 🔍 Semantic search with Pinecone vector database
-- ⚛️ Modern React frontend with real-time chat
-- 🔒 Secure API key management
-- 📱 Responsive design for all devices
+- 🔐 User Authentication (Email/Password + Google OAuth)
+- 🤖 AI-powered medical responses (Gemini AI)
+- 🗄️ SQLite database for user data and chat history
+- 🔍 Pinecone vector database for medical knowledge
+- 📱 Responsive futuristic UI
 
 ## Quick Start
 
-### Option 1: Automated Setup (Recommended)
-```bash
-# Double-click start_app.bat or run:
-start_app.bat
-```
+1. **Install dependencies:**
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-### Option 2: Manual Setup
+2. **Set up environment variables:**
+   Create `.env.local` file:
+   ```
+   PINECONE_API="your_pinecone_api_key"
+   GEMINI_API="your_gemini_api_key"
+   ```
 
-#### Backend Setup
-```bash
-cd backend
-pip install -r requirements.txt
-python app.py
-```
+3. **Run the application:**
+   ```bash
+   python app.py
+   ```
 
-#### Frontend Setup
-```bash
-cd frontend
-npm install
-npm start
-```
-
-## Environment Variables
-
-Create a `.env` file in the root directory:
-```
-PINECONE_API="your_pinecone_api_key"
-GEMINI_API="your_gemini_api_key"
-```
-
-## API Endpoints
-
-- `POST /api/chat` - Send message to chatbot
-- `GET /api/health` - Health check
-
-## Technology Stack
-
-- **Frontend**: React, Axios, CSS3
-- **Backend**: Flask, Python
-- **AI**: Google Gemini 2.5 Flash
-- **Vector DB**: Pinecone
-- **Embeddings**: HuggingFace Sentence Transformers
-- **Document Processing**: LangChain
-
-## Usage
-
-1. Start the application using `start_app.bat`
-2. Open http://localhost:3000 in your browser
-3. Ask medical questions like:
-   - "What is the use of paracetamol?"
-   - "What are the symptoms of diabetes?"
-   - "How to treat a headache?"
+4. **Access the app:**
+   - Main app: http://localhost:2800
+   - Login page: http://localhost:2800/login
 
 ## Project Structure
 
 ```
 medical_chatbot/
-├── backend/
-│   ├── app.py              # Flask API server
-│   └── requirements.txt    # Python dependencies
-├── frontend/
-│   ├── src/
-│   │   ├── App.js         # Main React component
-│   │   ├── App.css        # Styling
-│   │   └── index.js       # React entry point
-│   ├── public/
-│   │   └── index.html     # HTML template
-│   └── package.json       # Node dependencies
-├── research/
-│   └── trials.ipynb       # Model development notebook
-├── Data/
-│   └── medical_knowledge_base.pdf
-├── .env                    # Environment variables
-├── .env.example           # Environment template
-├── start_app.bat          # Quick start script
-└── README.md              # This file
+├── app.py              # Main Flask application
+├── auth.py             # Authentication manager
+├── database.py         # SQLite database handler
+├── index.html          # Main chatbot interface
+├── login.html          # Login/Register page
+├── styles.css          # UI styling
+├── script.js           # Main chatbot JavaScript
+├── auth.js             # Authentication JavaScript
+├── requirements.txt    # Python dependencies
+├── .env               # Environment template
+├── .env.local         # Your actual API keys (not in git)
+└── README.md          # This file
 ```
+
+## API Endpoints
+
+- `POST /api/register` - User registration
+- `POST /api/login` - User login
+- `GET /api/verify` - Verify authentication
+- `POST /api/chat` - Send message to chatbot (requires auth)
+- `GET /api/history` - Get chat history (requires auth)
+- `POST /api/feedback` - Save user feedback
+
+## Database Tables
+
+- `users` - User accounts
+- `chat_history` - Chat conversations
+- `medical_kb` - Medical knowledge base
+- `feedback` - User ratings and feedback
 
 ## Security
 
-- API keys are stored in `.env` file (excluded from Git)
-- CORS enabled for frontend-backend communication
-- Input validation and error handling
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Test thoroughly
-5. Submit a pull request
+- JWT token authentication
+- Password hashing
+- API key protection
+- User-specific data isolation
 
 ## License
 
-This project is licensed under the MIT License.
+MIT License
